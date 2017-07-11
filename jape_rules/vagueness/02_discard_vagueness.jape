@@ -1,0 +1,12 @@
+Phase: MatchingStyles2
+Input: Token Vagueness
+Options: control = first
+
+
+Rule: Test1
+Priority: 50
+(
+ {Vagueness, Token.string == "(?i)light"} | {Vagueness, Token.string == "(?i)sound"}
+):matches
+-->
+:matches.fp_partial = {}

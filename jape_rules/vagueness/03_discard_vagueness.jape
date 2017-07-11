@@ -1,0 +1,12 @@
+Phase: MatchingStyles3
+Input: Token fp_partial
+Options: control = first
+
+
+Rule: Test1
+Priority: 50
+(
+ {fp_partial, Token.category == "NN"} | {fp_partial, Token.category == "NNP"} | {fp_partial, Token.category == "NP"}
+):FP
+-->
+:FP.CANCELLA = {}

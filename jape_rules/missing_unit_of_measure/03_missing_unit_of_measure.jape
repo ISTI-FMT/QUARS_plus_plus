@@ -1,0 +1,14 @@
+Phase: Number
+Input: Token
+Options: control = All
+
+Rule: Number
+/*
+ * Number followed by a unit.
+ */
+(
+  ({Token.kind == "number"})
+):amount
+  -->
+:amount.Number = {type = scalarValue, rule = "Number.SimpleNumber"}
+

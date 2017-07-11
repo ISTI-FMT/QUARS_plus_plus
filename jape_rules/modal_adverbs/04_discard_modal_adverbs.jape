@@ -1,0 +1,12 @@
+Phase: FalsePositiveAdverbsEn
+Input: Token
+Options: control = first
+ 
+Rule: DetectInformationPurposesOnly
+(
+{Token.string == "Information"}
+{Token.string == "purposes"}
+{Token.string == "only"}
+):ipo_pattern
+-->
+:ipo_pattern.InformationPurposesOnly = {}

@@ -1,0 +1,33 @@
+
+Imports: {
+  import static gate.Utils.*;
+}
+Phase: Count
+Input: Token Sentence Split
+Options: control = appelt
+
+
+// to be used Regex Sentence Splitter
+Rule: Count
+(
+{Sentence}
+):np
+-->
+:np{
+
+AnnotationSet tokens = gate.Utils.getContainedAnnotations(inputAS, npAnnots, "Token");
+List<Annotation> tokensOrdered = gate.Utils.inDocumentOrder(tokens);
+// get the offsets
+if(!tokens.isEmpty())
+{
+long length = tokens.lastNode().getOffset() - tokens.firstNode().getOffset();
+FeatureMap features = Factory.newFeatureMap();
+  // check if the annotation set is less than or equal to 4 characters
+ int token_len1 = tokensOrdered.size();
+ features.put("sent_len", token_len1);
+ outputAS.add(tokens.firstNode(), tokens.lastNode(), "sent_length", features);
+  if (tokensOrdered.size() > 60)  {
+int token_len = tokensOrdered.size();
+features.put("rule", token_len);
+outputAS.add(tokens.firstNode(), tokens.lastNode(), "Excessive_length_phrase", features);
+}}}

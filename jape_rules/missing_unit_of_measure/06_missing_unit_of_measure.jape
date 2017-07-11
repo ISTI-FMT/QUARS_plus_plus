@@ -1,0 +1,28 @@
+Phase: MissingUnit
+Input: Measurement MissingUnit
+Options: control = All
+
+Rule: MissingUnit
+(
+{MissingUnit}
+{Measurement}
+):false_ambiguity
+-->
+{
+gate.AnnotationSet toRemove = (gate.AnnotationSet)bindings.get("false_ambiguity");
+outputAS.removeAll(toRemove);
+//get the tokens
+java.util.ArrayList tokens = new java.util.ArrayList(toRemove);
+//define a comparator for annotations by start offset
+Collections.sort(tokens, new gate.util.OffsetComparator());
+String text = "";
+Iterator tokIter = tokens.iterator();
+while(tokIter.hasNext())
+text += (String)((Annotation)tokIter.next()).getFeatures().get("string");
+
+gate.FeatureMap features = Factory.newFeatureMap();
+features.put("kind", "control");
+features.put("string", text);
+features.put("length", Integer.toString(text.length()));
+outputAS.add(toRemove.firstNode(), toRemove.lastNode(), "SpaceToken", features);
+}

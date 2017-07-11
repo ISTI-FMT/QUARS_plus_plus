@@ -1,0 +1,13 @@
+Phase: MissingReference
+Input: Token
+Options: control = first
+
+
+Rule: Test1
+Priority: 100
+
+(
+ {Token.string == "Ref"}
+):match
+-->
+:match.MissingReference = {string = :match.Token.string}

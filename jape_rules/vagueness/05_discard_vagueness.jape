@@ -1,0 +1,12 @@
+Phase: FalsePositiveAnaphoricEn
+Input: Token
+Options: control = first
+ 
+Rule: DetectPronoun
+(
+(({Token.string == "be"}) |
+({Token.string == "is"}) ({Token.category != "."})?)
+{Token.string == "possible"}
+):isbp_pattern
+-->
+:isbp_pattern.ItShallBePossible = {}

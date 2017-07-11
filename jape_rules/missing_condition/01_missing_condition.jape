@@ -1,0 +1,12 @@
+Phase:  antecedentind
+Input:  Token
+Options:  control = appelt
+
+Rule:  AntecedentInd01
+Priority: 40
+
+(
+{Token.string ==~ "[Ii]f"}
+):ifrule
+-->
+:ifrule.AntecedentInd = {rule = "AntecedentInd01"}

@@ -1,0 +1,13 @@
+Phase: Percent
+Input:Lookup
+Options: control = All
+
+Rule: SimplePercent
+/*
+ * Number followed by a unit.
+ */
+({Lookup.majorType == "percent"}):percent
+
+-->
+:percent.Percent = {type = unit,
+                     rule = "Percent.SimplePercent"}

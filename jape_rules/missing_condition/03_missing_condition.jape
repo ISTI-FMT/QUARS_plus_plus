@@ -1,0 +1,13 @@
+Phase: elseclause
+Input:  Token
+Options:  control = appelt
+
+Rule:  elseInd01
+Priority: 40
+
+(
+{Token.string ==~ "[Ee]lse"} |
+{Token.string ==~ "[Oo]therwise"} 
+):ifrule
+-->
+:ifrule.ElseInd = {rule = "elseInd01"}

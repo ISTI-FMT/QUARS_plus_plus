@@ -1,0 +1,16 @@
+Phase: FalsePositiveAnaphoricEn
+Input: Token
+Options: control = first
+ 
+Rule: DetectPronoun
+(
+({Token.string ==~ "(?i)it"})
+(({Token.string ==~ "(?i)shall"} ({Token.category != "."})? {Token.string == "be"}) |
+({Token.string ==~ "(?i)should"} ({Token.category != "."})? {Token.string == "be"}) |
+({Token.string ==~ "(?i)may"} ({Token.category != "."})? {Token.string == "be"}) |
+({Token.string == "is"}))
+({Token.category != "."})?
+{Token.string == "possible"}
+):isbp_pattern
+-->
+:isbp_pattern.ItShallBePossible = {}

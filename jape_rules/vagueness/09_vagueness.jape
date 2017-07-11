@@ -1,0 +1,26 @@
+Phase: cleanup
+Input: Token
+Options: control = first
+
+
+Rule: Test1
+Priority: 100
+(
+ ({Token.string ==~ "(?i)logical"}) ({Token.string == "and"} | {Token.string == "or"}) |
+ ({Token.string ==~ "(?i)green"} {Token.string == "LED"}) |
+ ({Token.string ==~ "(?i)short"}) ({Token.string == "circuit"} | {Token.string == "circuits"}) |
+ ({Token.string ==~ "(?i)raw"} {Token.string == "data"}) |
+ ({Token.string ==~ "(?i)hard"}) ({Token.string == "disk"} | {Token.string == "disks"}) |
+ ({Token.string ==~ "(?i)flashing"}) ({Token.string == "light"} | {Token.string == "lights"}) |
+ ({Token.string ==~ "(?i)near"}) ({Token.string == "miss"} | {Token.string == "accident"}) |
+ ({Token.string ==~ "(?i)also"}) |
+ ({Token.string ==~ "(?i)even"}) |
+ ({Token.string ==~ "(?i)thereafter"}) |
+ ({Token.string ==~ "(?i)once"}) |
+ ({Token.string ==~ "(?i)as"}) |
+ ({Token.string ==~ "(?i)well"}) |
+ ({Token.string ==~ "(?i)not"}) |
+ ({Token.string == "Information"} {Token.string == "purposes"} {Token.string == "only"})
+):match
+-->
+:match.cleanup = {rule=Test1}

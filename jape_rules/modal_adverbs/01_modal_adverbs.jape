@@ -1,0 +1,13 @@
+Phase: NP
+Input: Token 
+Options: control = All
+ 
+Rule: Adverbs
+Priority: 5
+(
+({Token.category == "RB"} | {Token.category == "RBR"})*
+):match
+-->
+:match.Adverbs = {kind = "adverb", rule = Adverbsdetection}
+
+

@@ -1,0 +1,340 @@
+Phase: PassiveVerb
+Input: Token
+Options: control = appelt
+
+Macro: MODALS
+
+(
+
+{Token.string == "can"}
+|
+{Token.string == "could"}
+|
+{Token.string == "may"}
+|
+{Token.string == "might"}
+|
+{Token.string == "must"}
+|
+({Token.string == "ought"} {Token.string == "to"}) 
+|
+{Token.string == "should"}
+|
+{Token.string == "would"}
+|
+{Token.string == "shall"}
+)
+
+
+Macro: TO
+
+(
+({Token.string == "to"})?
+)
+
+
+
+Macro: ADVS
+
+(
+
+({Token.category == RB})?
+
+
+|
+
+({Token.category == RB} {Token.category == RB})
+
+|
+
+({Token.category == RB} {Token.category == RB} {Token.category == RB})
+
+)
+
+
+
+Macro: NEGATION
+
+(
+
+({Token.category == RB, Token.string == "not"})
+
+|
+
+({Token.category == RB, Token.string == "n't"})
+
+)
+
+
+Rule: SimplePresentPassive
+// Simple Present Passive: is eaten or are eaten
+// (is | are) VBN
+Priority: 10
+(
+
+({Token.string == "is" } | { Token.string == "are" })
+
+((NEGATION) (ADVS))?
+
+{Token.category == "VBN"}
+
+
+
+):annotate --> :annotate.Passive = 
+
+{ rule = "SimplePresentPassive"
+}
+
+
+
+Rule: FVGPreConPas
+Priority: 10
+(
+({Token.string == "is"} | {Token.string == "are"})
+((NEGATION) (ADVS))?
+{Token.string == "being"} 
+{Token.string == "been"}
+{Token.category == "VBN"}
+):annotate -->
+:annotate.Passive = 
+{ rule = "FVGPreConPas" }
+
+
+
+Rule: FVGSimPasPas
+// Simple Past Passive: was eaten
+// (was | were) VBN
+Priority: 10
+(
+({Token.string == "was"} | {Token.string == "were"})
+((NEGATION) (ADVS))?
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGSimPasPas"
+}
+
+
+
+Rule: FVGPasConPas
+// Past Continuous Passive: was eating
+// (was | were) being VBN
+Priority: 10
+(
+({Token.string == "was"} | {Token.string == "were"})
+
+((NEGATION) (ADVS))?
+{Token.string == "being"}
+
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGPasConPas"
+}
+
+Rule: FVGPasPerPas
+// Past Perfect Passive: had been eaten
+//  had been VBN
+Priority: 10
+(
+{Token.string == "had"}
+
+((NEGATION) (ADVS))?
+{Token.string == "been"}
+
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGPasPerPas"
+}
+
+
+Rule: FVGPasPerConPas
+// Past Perfect Continuous Passive: had been being eaten
+//  had been VBG
+Priority: 10
+(
+{Token.string == "had"}
+((NEGATION) (ADVS))?
+{Token.string == "been"}
+{Token.string == "being"}
+
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGPasPerConPas"
+}
+
+
+Rule: FVGSimFutPas
+// Simple Future Passive: will be eaten
+// (will | shall) be  VBN
+Priority: 10
+(
+({Token.string == "will"} | {Token.string == "shall"}
+
+| {Token.string == "wo"} | {Token.string == "'ll"}
+
+)
+((NEGATION) (ADVS))?
+{Token.string == "be"}
+{Token.category == VB}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGSimFutPas"
+}
+
+Rule: FVGFutConPas
+// Future Continuous Passive: will be being  eaten
+// (will | shall) be being VBN
+Priority: 10
+(
+({Token.string == "will"} | {Token.string == "shall"}
+| {Token.string == "wo"} | {Token.string == "'ll"}
+
+)
+((NEGATION) (ADVS))?
+{Token.string == "be"}
+{Token.string == "being"}
+
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGFutConPas"
+}
+
+
+Rule: FVGFutPerConPas
+// Future Perfect Continuous Passive: will have been being eaten
+// (will | shall) have been being VBN
+Priority: 10
+(
+({Token.string == "will"} | {Token.string == "shall"} | {Token.string == "SHALL"}
+
+| {Token.string == "wo"} | {Token.string == "'ll"}
+)
+
+((NEGATION) (ADVS))?
+{Token.string == "have"}
+{Token.string == "been"}
+{Token.string == "being"}
+
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "FVGFutPerConPas"
+}
+
+
+Rule: FVGSimPrePas
+// Simple Present Passive: is eaten or are eaten
+// (is | are) VBN
+Priority: 10
+(
+
+({Token.string == "is" } | { Token.string == "are" })
+
+(ADVS)?
+
+{Token.category == "VBN"}
+
+):annotate --> 
+:annotate.Passive = {
+rule = "FVGSimPrePas"
+}
+
+Rule: Modal
+// might be walking
+Priority: 10
+(
+(MODALS)
+(ADVS)
+{Token.string == "be"}
+
+{Token.category == VBG}
+
+):annotate -->
+:annotate.Passive = {
+rule = "Modal"
+}
+
+Rule: Modal1
+// might have been walking
+Priority: 10
+(
+(MODALS)
+(ADVS)
+{Token.string == "have"}
+{Token.string == "been"}
+
+{Token.category == VBG}
+
+):annotate -->
+:annotate.Passive = {
+rule = "Modal1"
+}
+
+Macro: TOBE
+
+(
+{Token.string == "be"}
+|
+{Token.string == "is"}
+|
+{Token.string == "am"}
+|
+{Token.string == "'s"}
+|
+{Token.string == "m"}
+|
+{Token.string == "are"}
+|
+{Token.string == "was"}
+|
+{Token.string == "were"}
+
+)
+
+
+Macro: SPECIALS
+
+(
+
+(
+(TOBE)
+{Token.string == "supposed"} {Token.string == "to"}
+)
+
+|
+
+(
+(TOBE)
+{Token.string == "able"}
+{Token.string == "to"}
+
+)
+
+|
+
+(
+{Token.string == "used"}
+{Token.string == "to"}
+
+)
+
+
+)
+
+Rule: Special1
+// SPECIAL + VB
+Priority: 10
+(
+(SPECIALS)
+(ADVS)
+{Token.category == VBN}
+
+):annotate -->
+:annotate.Passive = {
+rule = "Special1"
+}
+

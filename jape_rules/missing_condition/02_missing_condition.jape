@@ -1,0 +1,19 @@
+Phase:  conditionalparts
+Input:  Token
+Options:  control = appelt
+
+Rule:  ConditionalParts01
+Priority: 2
+
+{Token.string ==~ "[Ii]f"}
+
+(
+({Token, !Token.kind == punctuation})*
+)
+:antpart
+
+{Token.kind == punctuation}
+
+-->
+:antpart.AntecedentPart = {rule = "ConditionalParts01"}
+

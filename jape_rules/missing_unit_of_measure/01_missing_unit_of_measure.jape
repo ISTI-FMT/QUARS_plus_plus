@@ -1,0 +1,9 @@
+Phase: MeasureUnit
+Input: Token Lookup
+Options: control = All
+
+Rule: SimpleMeasure
+({Lookup.majorType == "unit"}):unit
+-->
+:unit.Measurement = {type = unit,
+                     rule = "measurement.SimpleMeasure"}

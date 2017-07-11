@@ -1,0 +1,12 @@
+Phase: Mixed
+Input:Token
+Options: control = first
+
+
+Rule: Test1
+Priority: 100
+(
+ {Token.kind == word, Token.orth==mixedCaps}
+):match
+-->
+:match.Unknownacronyms = {rule=Test1}

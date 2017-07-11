@@ -1,0 +1,15 @@
+Phase: MatchingStyles
+Input: Lookup
+Options: control = brill
+
+//Pipeline: Document Reset PR, Annie Gazetteer, Annie English Tokenizer, Annie Sentence Splitter, 
+//Annie POS Tagger
+
+Rule: Test1
+Priority: 100
+
+(
+ {Lookup.majorType == vague}
+):match
+-->
+:match.Vagueness = {}//{type = :match.Lookup@cleanString}

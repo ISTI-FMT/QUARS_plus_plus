@@ -1,0 +1,13 @@
+Phase: underscore
+Input: Token
+Options: control = first
+
+
+Rule: Test1
+Priority: 100
+
+(
+ {Token.string == "_"}
+):match
+-->
+:match.underscore = {rule=Test1}

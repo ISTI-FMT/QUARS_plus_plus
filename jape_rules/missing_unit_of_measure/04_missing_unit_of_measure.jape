@@ -1,0 +1,45 @@
+Phase: MissingUnit
+Input: Token Number Measurement Percent
+Options: control = All
+
+Rule: MissingUnit
+(
+{Number}
+{!Measurement}
+):missing
+(
+{Number}
+{!Percent}
+):missingpercent
+(
+{Number}
+({Token})[0,1]
+{Number}
+{!Measurement}
+):missingpar
+(
+{Number}
+({Token})[0,1]
+{Number}
+{!Percent}
+):missingpercentpar
+(
+{Number}
+{Token.string == ":"}
+{Number}
+{Token.string == ":"}
+{Number}
+{Token.string == "-"}
+):time
+(
+{Number}
+{Token.string == ":"}
+{Number}
+):hour
+-->
+:missing.MissingUnit = {rule = "MissingUnit"},
+:missingpercent.MissingUnit = {rule = "MissingUnit"},
+:missingpar.MissingUnit = {rule = "MissingUnit"},
+:missingpercentpar.MissingUnit = {rule = "MissingUnit"},
+:time.MissingUnittime = {rule = "MissingUnit"},
+:hour.MissingUnithour = {rule = "MissingUnit"}

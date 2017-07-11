@@ -1,0 +1,17 @@
+Phase: MissingElse
+Input: Split AntecedentPart AntecedentInd Token ElseInd
+Options: control = first
+
+ 
+Rule: missing
+(
+{AntecedentInd}
+{AntecedentPart}
+(
+({Token, !Token.string == ","}) |
+({Token, !Token.string == "."}) 
+)
+{!ElseInd}
+):missingelse
+-->
+:missingelse.MissingElse = {rule = "missing"}

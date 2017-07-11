@@ -1,0 +1,15 @@
+Phase: PassiveVerb
+Input: Token
+Options: control = appelt
+
+
+Rule: Rule1
+Priority: 10
+(
+({Token.string == "SHALL"})
+{Token.string == "be"}
+{Token.category == VBN}
+):annotate -->
+:annotate.Passive = {
+rule = "passive"
+}

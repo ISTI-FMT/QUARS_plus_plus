@@ -1,0 +1,21 @@
+Phase: MissingUnit
+Input: Token Number Measurement Percent
+Options: control = All
+
+Rule: MissingUnit
+(
+{Number}
+{Token.string == ":"}
+{Number}
+{Token.string == ":"}
+{Number}
+{Token.string == "-"}
+):time
+(
+{Number}
+{Token.string == ":"}
+{Number}
+):hour
+-->
+:time.MissingUnitTime = {rule = "MissingUnit"},
+:hour.MissingUnitHour = {rule = "MissingUnit"}
